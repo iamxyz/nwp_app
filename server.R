@@ -10,6 +10,7 @@ library(tm)
 
 # load n-gram freq table files
 
+
 load("my_tdm_freq_n_1_gram_sorted.Rdata")   
 load("my_tdm_freq_n_2_gram_sorted.Rdata") 
 load("my_tdm_freq_n_3_gram_sorted.Rdata") 
@@ -1046,7 +1047,7 @@ shinyServer(
         
         input_text <- NULL
     
-        
+        output$messages <- renderText("Now the application is ready to use. 8-)")
         #output$value <- renderPrint({ input$type })
       
         #output$out2 <- renderPrint(input$text1)

@@ -48,6 +48,7 @@ shinyUI(pageWithSidebar(
         actionButton("gobutton", "Predict Next Word"),
         
         HTML("<hr>"),
+        HTML("<Font Color=blue>"),
         h4("Introduction:"),
         h5("The application is used to predict the next word based on the input phrase."),
         h4("Four steps:"),
@@ -56,19 +57,30 @@ shinyUI(pageWithSidebar(
         h5("Step 3: Press the 'Predict Next Word' button and wait a minute for the application to work out the prediction."),
         h5("Step 4: The next word ( 1-3 candidate words provided ) will be shown."),
         HTML("<hr>"),
-        h6("Author: Yulong Deng, Date: 2016-4-10"),
-        h6("Visit github for source code of the shiny app:"),
-        a("https://github.com/iamxyz/nwp_app")
+        h6("Author: Yulong Deng, Updated Date: 2016-4-10"),
+        HTML("</Font>")
+        #h6("Visit github for source code of the shiny app:"),
+        #a("https://github.com/iamxyz/nwp_app")
     ),
     mainPanel(
-        
+       
+        h4("Message Window:"),
+        HTML("<Font Color=red>"),
+        h5("The data will be loaded during the first time to lunch the application, please wait..."),
+        HTML("</Font>"),
+        HTML("<Font Color=green>"),
+        h5(textOutput('messages')),
+        HTML("</Font>"),
+        HTML("<hr>"),
         h4('The phrase you inputed:'),
         textOutput('phrase'),
         HTML("<hr>"),
         h4("The candidate next word:"),
         DT::dataTableOutput("words_table"),
+        HTML("<Font Color=blue>"),
         h5("Notes: The candidate words ( up to three ) are ordered by possibility , you can pick up one of them as the next suitable word."),
-        HTML("<hr>")
+        HTML("<hr>"),
+        HTML("</Font>")
        
         
         )
