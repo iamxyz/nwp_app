@@ -1,3 +1,6 @@
+# coding by Yulong Deng, updated 2016-4-8 
+#=====================================================================================
+
 library(shiny)
 
 #library(DT)
@@ -51,7 +54,7 @@ shinyUI(pageWithSidebar(
         h5("Step 1: Select one of input types: choose a phrase from samples or type a new phrase."),
         h5("Step 2: According to the input type selected, choose a sample phrase from the options box or type a new phrase in the text input box."),
         h5("Step 3: Press the 'Predict Next Word' button and wait a minute for the application to work out the prediction."),
-        h5("Step 4: The next word ( 1-5 candidate words provided ) will be shown."),
+        h5("Step 4: The next word ( 1-3 candidate words provided ) will be shown."),
         HTML("<hr>"),
         h6("Author: Yulong Deng, Date: 2016-4-10"),
         h6("Visit github for source code of the shiny app:"),
@@ -64,7 +67,7 @@ shinyUI(pageWithSidebar(
         HTML("<hr>"),
         h4("The candidate next word:"),
         DT::dataTableOutput("words_table"),
-        h5("Notes: The candidate words ( up to five ) are ordered by possibility , you can pick up one of them as the next suitable word."),
+        h5("Notes: The candidate words ( up to three ) are ordered by possibility , you can pick up one of them as the next suitable word."),
         HTML("<hr>")
        
         

@@ -1,7 +1,9 @@
+# coding by Yulong Deng, updated 2016-4-8 
+#=====================================================================================
 
 library(shiny)
 
-library(DT)
+#library(DT)
 #library(RWeka)
 
 library(tm)
@@ -122,17 +124,17 @@ input_process <- function(input_raw){
 
 # parameter setting before invoke function pred_nextword
 
-c_2 = c(0.3, 0.7)
-c_3 = c(0.2, 0.3, 0.5)
-c_4 = c(0.1, 0.2,0.3, 0.4)
+# c_2 = c(0.3, 0.7)
+# c_3 = c(0.2, 0.3, 0.5)
+# c_4 = c(0.1, 0.2,0.3, 0.4)
 
-# c_2 = c(0.25, 0.75)
-# c_3 = c(0.1, 0.35, 0.55)
-# c_4 = c(0.05, 0.15,0.35, 0.55)
+ c_2 = c(0.2, 0.8)
+ c_3 = c(0.1, 0.45, 0.45)
+ c_4 = c(0.05, 0.3,0.3, 0.35)
 
 # my loop counts for seraching work
 
-my_loop_counts <- 5
+my_loop_counts <- 3
 
 pred_nextword <- function(input_str){
     
@@ -156,6 +158,30 @@ pred_nextword <- function(input_str){
     ss <- strsplit(input_str, " ")
     ssv <- unlist(ss)
     ssv_length <- length(ssv)
+    
+    
+    
+    #<----------------------
+    
+    #remove the 's from the last word if the last word is not he's, she's and it's
+ 
+    my_tempwords <- c("he's", "she's", "it's")
+    if(grepl("'s$",ssv[ssv_length]))
+        if(!(ssv[ssv_length] %in% my_tempwords)){
+            
+            print("hi, i am here")
+            
+            ssv[ssv_length] <- gsub("'s$","",ssv[ssv_length])
+            
+        }  
+    
+    
+    #<----------------------
+    
+   
+    
+    
+    
     
     
     # make the strings search_str3, search_str2, search_str1   
@@ -220,7 +246,9 @@ pred_nextword <- function(input_str){
         cat("error,nothing input!\n")
     }
     
+  
     
+
     
     # do3 == TRUE ,the input_str must contain 3 words or more, looking for search_str3, search_str2, 
     # search_str1 and the last word ,step by step, in each step, work out the p4, p3, p2, p1 respectively.
@@ -970,12 +998,18 @@ pred_nextword <- function(input_str){
             
             cat("no items found 8( \n")
             
+           
+            
+            
             # give the top unique word as the predicited word.
             
             words_name <- names(my_tdm_freq_n_1_gram_sorted[1])
             words_prob <- my_tdm_freq_n_1_gram_sorted[1]/sum(my_tdm_freq_n_1_gram_sorted)
             words_count <- 1
-        }
+        
+           
+            
+            }
         
         
     }        
@@ -997,7 +1031,10 @@ pred_nextword <- function(input_str){
     
     # return my_words table (only 10 of the words founded) .
     
-    if(words_count >10 ) my_words_tab <- my_words_tab[1:10, ] 
+    
+    #if(words_count >10 ) my_words_tab <- my_words_tab[1:10, ] 
+    
+
     
     my_words_tab
 }
@@ -1086,8 +1123,17 @@ shinyServer(
                     
                     input_text <- isolate(input$text2)
                 }
-                
-                    input_text_processed <- input_process(input_text)
+                  
+                  
+                # if input_text is nothing, display empty result, else go to next steps
+                  if(input_text == ""){ 
+                      
+                      
+                      data <- df_null_gram
+                  
+                  }else{
+                    
+                   input_text_processed <- input_process(input_text)
                     
                     
                     withProgress(message= 'Working out the next word...',{
@@ -1095,6 +1141,9 @@ shinyServer(
                     data <- pred_nextword(input_text_processed)
                     
                     })
+                      
+               
+                  }
              }
             
             })
