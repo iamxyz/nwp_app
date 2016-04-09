@@ -37,7 +37,7 @@ shinyUI(pageWithSidebar(
     sidebarPanel(
         
         #verbatimTextOutput("value"),
-        radioButtons("type", label = h4("Seleted Input Type"),
+        radioButtons("type", label = h4("Select a input type"),
                      choices = list("Choose a sample phrase" = 1, "Input a new phrase" = 2),
                      selected = 1),
      
@@ -57,7 +57,7 @@ shinyUI(pageWithSidebar(
         h5("Step 3: Press the 'Predict Next Word' button and wait a minute for the application to work out the prediction."),
         h5("Step 4: The next word ( 1-3 candidate words provided ) will be shown."),
         HTML("<hr>"),
-        h6("Author: Yulong Deng, Updated Date: 2016-4-10"),
+        h6("Author: Yulong Deng, Updated: 2016-4-10"),
         HTML("</Font>")
         #h6("Visit github for source code of the shiny app:"),
         #a("https://github.com/iamxyz/nwp_app")
