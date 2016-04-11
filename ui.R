@@ -1,4 +1,4 @@
-# coding by Yulong Deng, updated 2016-4-8 
+# coding by Yulong Deng, updated 2016-4-10 
 #=====================================================================================
 
 library(shiny)
@@ -66,7 +66,7 @@ shinyUI(pageWithSidebar(
        
         h4("Message Window:"),
         HTML("<Font Color=red>"),
-        h5("The data will be loaded during the first time to lunch the application, please wait..."),
+        h5("The data will be loaded during the first time to launch the application, please wait..."),
         HTML("</Font>"),
         HTML("<Font Color=green>"),
         h5(textOutput('messages')),
@@ -82,7 +82,6 @@ shinyUI(pageWithSidebar(
         HTML("<hr>"),
         HTML("</Font>")
        
-        
         )
 ))
 
