@@ -1,4 +1,4 @@
-# coding by Yulong Deng, updated 2016-4-10
+my# coding by Yulong Deng, updated 2016-4-10
 #=====================================================================================
 
 library(shiny)
@@ -52,9 +52,27 @@ input_process <- function(input_raw){
     # also remove ' in the string as (he's will be trans to hes, i'll will be trans
     # to ill, using code below instead.
     
+    
     # replace symbols with " " ,except of these symbols: alphanumeric, space, ', -, * 
     
-    my_input <- gsub("[^[:alnum:][:space:]'-*]", " ", my_input)
+    # my_input <- gsub("[^[:alnum:][:space:]'*-]", " ", my_input)
+   
+    # replace symbols with " " ,except of these symbols: alphanumeric, space, ', - 
+    
+    my_input <- gsub("[^[:alnum:][:space:]'-]", " ", my_input)
+   
+    
+    
+    
+    # remove  bracet "("
+    
+    my_input <- gsub("\\(","",my_input)
+    
+    
+    # remove  bracet ")"
+    
+    my_input <- gsub("\\)","",my_input)
+    
     
     # remove leading and trailing whitespace
     
@@ -170,7 +188,7 @@ pred_nextword <- function(input_str){
     if(grepl("'s$",ssv[ssv_length]))
         if(!(ssv[ssv_length] %in% my_tempwords)){
             
-            print("hi, i am here")
+            #print("hi, i am here")
             
             ssv[ssv_length] <- gsub("'s$","",ssv[ssv_length])
             
@@ -333,8 +351,12 @@ pred_nextword <- function(input_str){
                 
                 input_str <- names_temp_set_sorted_i
                 
+                # trans "."  ->  "\\."
+                input_str <-  gsub("\\.","\\\\.",input_str)
+                
                 # split every words in input_str
                 # eg. input_str here: "a case of beer"
+                
                 
                 ss <- strsplit(input_str, " ")
                 
@@ -645,6 +667,10 @@ pred_nextword <- function(input_str){
                 
                 input_str <- names_temp_set_sorted_i
                 
+                
+                # trans "."  ->  "\\."
+                input_str <-  gsub("\\.","\\\\.",input_str)
+                
                 # split every words in input_str
                 # eg. input_str here: "case of beer"
                 
@@ -819,7 +845,7 @@ pred_nextword <- function(input_str){
     # then given top my_loop_counts predicted words with their px ordered.
     
     #------------ step 1-------------------
-    # eg. search_str2: "of"
+    # eg. search_str1: "of"
     
     if(do1 == TRUE){
         
@@ -889,6 +915,9 @@ pred_nextword <- function(input_str){
                 #------------ step 2-------------------
                 
                 input_str <- names_temp_set_sorted_i
+                
+                # trans "."  ->  "\\."
+                input_str <-  gsub("\\.","\\\\.",input_str)
                 
                 # split every words in input_str
                 # eg. input_str here" "of beer"
@@ -1136,6 +1165,14 @@ shinyServer(
                     
                    input_text_processed <- input_process(input_text)
                     
+                   # if input_text_processed is nothing, display empty result, else go to next steps 
+                   if(input_text_processed ==""){
+                       
+                       data <- df_null_gram
+                       
+                   }
+                   
+                   else{
                     
                     withProgress(message= 'Working out the next word...',{
                     
@@ -1143,7 +1180,7 @@ shinyServer(
                     
                     })
                       
-               
+                  }
                   }
              }
             
